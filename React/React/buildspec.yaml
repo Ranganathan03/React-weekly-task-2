@@ -1,0 +1,19 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+       echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  build:
+    commands:
+      - echo "Building Docker image..."
+      - docker build -t ranganathan03/react . 
+
+  post_build:
+    commands:
+      - echo "Pushing Docker image to Docker Hub..."
+      - docker push ranganathan03/react:latest
+artifacts:  
+  files: Dockerrun.aws.json
+
+
